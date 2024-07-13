@@ -171,8 +171,8 @@ jumanWord = do
   katuyokei <- asterisk <|> nonSep
   sep
   katuyokeiID <- number
-  sep
-  sonota <- try $ option "" nonSep --ないときもある
+  optional sep               
+  sonota <- option "" nonSep --その他がないときは "" を返す
   return $ JumanWord nyuryoku yomi genkei hinsi hinsiID hinsiSaibunrui saibunruiID katuyogata katuyogataID katuyokei katuyokeiID sonota
 
 altWord :: Parser JumanData
@@ -200,8 +200,8 @@ altWord = do
   katuyokei <- asterisk <|> nonSep
   sep
   katuyokeiID <- number
-  sep
-  sonota <- try $ option "" nonSep
+  optional sep
+  sonota <- option "" nonSep  --その他がないときは "" を返す
   return $ AltWord nyuryoku yomi genkei hinsi hinsiID hinsiSaibunrui saibunruiID katuyogata katuyogataID katuyokei katuyokeiID sonota
 
 -- | テキストを受け取り、jumanで語に区切ったのち、動詞・名詞・形容詞・副詞のみ返す。this will be deprecated.
